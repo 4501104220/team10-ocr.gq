@@ -1,5 +1,5 @@
 # team10-ocr.gq
-##____NHÓM 10____
+*____NHÓM 10____
 1. Trần Quốc Thắng - 4501104220
 
 2. Lý Hoàng Long - 4501104129
