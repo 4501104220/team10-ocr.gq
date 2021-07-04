@@ -502,5 +502,4 @@
         console.log('Data successfully parsed!')
         console.timeEnd('Time used');
 
-
 })();
