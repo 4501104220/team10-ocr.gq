@@ -11,7 +11,7 @@ function export_csv() {
         var index = (i + 1).toString();
         var text_in = elements_input[i].defaultValue;
         var text_out = elements_output[i].innerHTML;
-        text_out = text_out.replace(/[,*+°Š~`¡!’»\-?^${}()|[\]\\]/g, '');
+        text_out = text_out.replace(/[,*+@°Š~`¡!’»\-?^${}()|[\]\\]/g, '');
         text_out = text_out.replace(/[\n\r]/g, ' ');
         txt = txt + index + ", " + text_in + ", " + text_out + "\n\n"
     }

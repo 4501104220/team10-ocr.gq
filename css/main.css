@@ -364,7 +364,7 @@ div#main-card:hover {
     /*new feature*/
 
     textarea {
-        color: black;
+        color: #504335;
     }
 
 .mt-5 {
@@ -382,7 +382,7 @@ div#main-card:hover {
 #placeholder {
     border: 1px dotted lightgray;
     border-radius: 10px;
-    color: lightgray;
+    color: #c15252;
     text-align: center;
     padding: 5%;
     font-weight: 100;
