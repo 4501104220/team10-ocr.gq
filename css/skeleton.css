@@ -360,6 +360,7 @@ form {
 /* Utilities
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .u-full-width {
+  text-align: center;
   width: 100%;
   box-sizing: border-box; }
 .u-max-full-width {

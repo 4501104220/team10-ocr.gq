@@ -8,9 +8,15 @@
     <meta name="Description" content="Optical Character Recognition in JavaScript"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/jquery.Jcrop.min.css"/>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/spinner.css">
     <link rel="stylesheet" href="css/main.css"/>
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 
+    <script src="js/scripts/jquery-3.4.1.min.js"></script>
+    <script src="js/scripts/tesseract-v2.0.1.min.js"></script>
+    <script src="js/export-csv.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145083566-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -22,6 +28,13 @@
         gtag('js', new Date());
         gtag('config', 'UA-145083566-1');
     </script>
+
+    <script>
+        const uncachedValue = new Date().toISOString();
+        // document.write("<link rel='stylesheet' href='css/styles.css?v=" + uncachedValue + "'>");
+        document.write("<script src='js/main-v2.js?v=" + uncachedValue + "'><\/script>");
+    </script>
+
 
 </head>
 
@@ -50,15 +63,15 @@
         </h3>
 
         <div class="contact">
-        <ul>
-            <a href="https://www.linkedin.com/in/" target="_blank">
-                <i class="fa fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/4501104220" target="_blank">
-                <i class="fa fa-github"></i>
-            </a>
-        </ul>
-    </div>
+            <ul>
+                <a href="https://www.linkedin.com/in/" target="_blank">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/4501104220" target="_blank">
+                    <i class="fa fa-github"></i>
+                </a>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -145,97 +158,62 @@
         </p>
     </div>
 
+    <h3 class="text-center">Convert Image Files To A CSV File</h3></br>
+    <div class="row" ondragover="return false">
+        <div class="column one-third">
+            <h4>Input</h4>
+            <ul>
+                <li>Paste your image directly from the clipboard into the page (Ctrl + V)</li>
+                <li>
+                    Drag your image from the deskstop or file explorer directly into the page
+                </li>
+                <li>
+                    Browse your system for image(s)
+                    <br>
+                    <label for="file-chooser" class="btn btn-lg btn-success" style="margin-top: 10px;">Browse</label>
+                    <input id="file-chooser" type="file" multiple style="display:none;">
+                </li>
 
-    <div> THANGTRAN feature for from folder image to file csv with format "name of image, data"</div>
-    <div class="jumbotron">
-        <div id="step1_dir">
-            <input type="file" id="imageLoader_dir" style="display:none"/>
+                <li>
+                    Browse your system for a folder contains image(s)
+                    <br>
+                    <label for="folder-chooser" class="btn btn-lg btn-success" style="margin-top: 10px;">Browse</label>
+                    <input id="folder-chooser" type="file" webkitdirectory multiple style="display:none;">
+                </li>
 
-            <figure class="not-ready">
-                <video autoplay></video>
-            </figure>
-
-            <button class="btn btn-lg btn-success" style='margin-right:16px' disabled id="takePicture_dir">Take a picture
-            </button>
-            <button class="btn btn-lg btn-success" id="btnFileUpload_dir">Upload picture</button>
-
-            <script type="text/javascript"
-                    src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
+                <li>
+                    Paste URL(s) and submit. Note: may not work with certain URLs due to CORS.
+                    <br>
+                    <textarea id="url-list"
+                              style="height:initial;width:100%;margin-top: 10px;white-space: nowrap;  overflow: auto;"
+                              rows="5" placeholder="https://domain/path/image.png" wrap="soft"></textarea>
+                    <button id="url-submit" type="button" class="btn btn-lg btn-primary">Submit</button>
+                </li>
+            </ul>
         </div>
-        <div id="step2_dir">
-
-            <p class="lead">
-                Crop the picture and adjust it so that the text is visible.
-                <i class="glyphicon glyphicon-question-sign help" data-placement="bottom"
-                   data-content="<img src='img/step2.jpg' />" data-html="true"></i>
-            </p>
-
-            <figure>
-                <canvas style="display:none"></canvas>
-                <img src=""/>
-            </figure>
-
-            <p>Brightness: <input type="range" min="0" max="100" id="brightness_dir" value="20"></p>
-
-            <p>Contrast: <input type="range" min="0" max="100" id="contrast_dir" value="90"></p>
-
-            <button class="btn btn-lg btn-success" id="adjust_dir" disabled>Done</button>
-        </div>
-        <div id="step3_dir">
-            <h3><i class="glyphicon glyphicon-pencil"></i></h3>
-
-            <p class="lead">The recognized text will be displayed below.</p>
-
-            <figure>
-                <canvas></canvas>
-            </figure>
-
-            <blockquote>
-                <div class="spinner">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                </div>
-                <p id="result_dir"></p>
-                <footer></footer>
-            </blockquote>
-
-            <button class="btn btn-lg btn-success" id="go-back_dir">Go back</button>
-            <button class="btn btn-lg btn-success" id="start-over_dir">Start over</button>
-
-            <form target="_blank" action="https://www.google.com/search" method="GET">
-                <input id="qid_dir" type="hidden" name="q" placeholder="Google Search"/>
-                <button class="btn btn-lg btn-primary" id="search_dir">Search</button>
-            </form>
-
+        <div class="column two-thirds">
+            <h4>Result</h4>
+            <div id="results" class="column no-margin"></div>
+            <div id="placeholder" class="column no-margin">
+                You haven't provided any image(s) yet.
+            </div>
         </div>
     </div>
 
-    <div class="header">
-        <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="#" data-step="1">#1 <i class="glyphicon glyphicon-camera"></i></a></li>
-            <li class="disabled"><a href="#" data-step="2">#2 <i class="glyphicon glyphicon-cog"></i></a></li>
-            <li class="disabled"><a href="#" data-step="3">#3 <i class="glyphicon glyphicon-pencil"></i></a></li>
-        </ul>
-        <h3 class="text-right">Step:</h3>
-    </div>
+    <button class="btn btn-lg btn-info" onclick="export_csv()">Export to CSV File</button>
+
     <div class="footer">
         <p>
 
         </p>
     </div>
-
-
-
-
 </div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="js/scripts/modernizr.min.js"></script>
 <script src="js/scripts/bootstrap.min.js"></script>
 <script src="js/scripts/jquery.Jcrop.js"></script>
-<script src='https://cdn.jsdelivr.net/gh/naptha/tesseract.js@v1.0.14/dist/tesseract.min.js'></script>
+<!--<script src='https://cdn.jsdelivr.net/gh/naptha/tesseract.js@v1.0.14/dist/tesseract.min.js'></script>-->
 <script src="js/scripts/glfx.min.js"></script>
 <script src="js/main.js"></script>
 

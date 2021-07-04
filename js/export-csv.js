@@ -1,4 +1,4 @@
-function download_csv() {
+function export_csv() {
     console.log($(".output").val());
     console.log(document.getElementsByClassName("u-full-width info")[0]);
 
