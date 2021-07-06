@@ -457,6 +457,9 @@
             $("#file-chooser").change(function (e) {
                 const files = e.target.files;
                 for (let i = 0; i < files.length; i++) {
+                    if (files[i].type.substring(0, files[i].type.indexOf("/")) != "image") {
+                        continue;
+                    }
                     loadAsFile(files[i], "Browse", files[i].name);
                 }
             });
