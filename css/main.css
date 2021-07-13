@@ -219,10 +219,10 @@ div#main-card {
     box-shadow: -5px 2px 18px 4px #ccc;
 }
 
-.cover-photo {
+.line-design {
     background: linear-gradient(to top right, #EEBE6C 0%, #CA7C4E 100%);
     width: 300px;
-    height: 100px;
+    height: 50px;
 }
 
 .photo {
@@ -249,7 +249,7 @@ img {
 .content {
     background: #f9f9f9;
     width: 300px;
-    height: 360px;
+    height: 400px;
     position: relative;
     top: -35px;
 }
